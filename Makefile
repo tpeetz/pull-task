@@ -12,8 +12,8 @@ GOLINT=$(GOBIN)/golint
 GOVET=$(GOCMD) vet
 
 # Project parameters
-GONAME=ibtp-task
-GOFILE=cmd/ibtp-task/main.go
+GONAME=pull-task
+GOFILE=cmd/pull-task/main.go
 
 .PHONY: all deps clean clean-bin clean-doc
 
