@@ -1,2 +1,2 @@
 # pull-task
-Pull tasks from Github, Gitab and Redmine into Taskwarrior
+Pull tasks from Github, Gitlab and Redmine into Taskwarrior
