@@ -24,10 +24,15 @@ jobs:
 
     - name: Get dependencies
       run: |
-        go get -v -t -d ./...
+        go get -v -t -d -u github.com/spf13/cobra/cobra |
+        go get -v -t -d -u github.com/jstemmer/go-junit-report |
+        go get -v -t -d -u github.com/inconshreveable/mousetrap |
+        go get -v -t -d -u github.com/mitchellh/go-homedir |
+        go get -v -t -d -u github.com/t-yuki/gocover-cobertura |
+        go get -v -t -d -u golang.org/x/lint/golint |
 
     - name: Build
-      run: go build -v .
+      run: go build -v -ldflags="-X main.version=$(shell git describe --always --long --dirty)" -o bin/pull-task cmd/pull-task/main.go
 
     - name: Test
-      run: go test -v .
+      run: go test -v ./...
