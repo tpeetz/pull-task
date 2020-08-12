@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// Issue represents issues in Gitlab.
+// Issue represents issue in Gitlab.
 type Issue struct {
 	ID          int       `json:"id"`
 	InternalID  int       `json:"iid"`
