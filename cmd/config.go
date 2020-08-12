@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var configCmd = &cobra.Command{
@@ -16,11 +15,9 @@ var configCmd = &cobra.Command{
 			fmt.Println("show configuration details")
 		}
 		fmt.Println("Configuration:")
-		settings := viper.AllSettings()
-		fmt.Printf("Settings: %v\n", settings)
-		for k, v := range settings {
-			fmt.Printf("%v: %v\n", k, v)
-
+		serverList := serverConfiguration.List()
+		for _, server := range serverList {
+			fmt.Printf("Server configuration: %v\n", server)
 		}
 	},
 }

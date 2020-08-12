@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/tpeetz/pull-task/pkg/server"
 )
 
 const (
@@ -25,6 +26,7 @@ var (
 		Short: "pull-task loads issues from Github, Gitlab and Redmine",
 		Long:  `pull-task loads issues from Github, Gitlab and Redmine and synchronizes with TaskWarrior`,
 	}
+	serverConfiguration = server.Configuration{}
 )
 
 // Execute sets the version of ibtp-gitlab abd executes the command.
@@ -56,6 +58,14 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		if Verbose {
 			fmt.Println("Using config file:", viper.ConfigFileUsed())
+		}
+		settings := viper.AllSettings()
+		for _, v := range settings {
+			gitServer, err := server.NewGitServer(v.(map[string]interface{}))
+			if err == nil && gitServer != nil {
+				serverConfiguration.Add(gitServer)
+			}
+			//fmt.Printf("\nServer List: %v\n", serverConfiguration)
 		}
 	}
 }
