@@ -1,8 +1,7 @@
 package server
 
 import (
-	"errors"
-
+	"github.com/tpeetz/pull-task/pkg/types/github"
 	"github.com/tpeetz/pull-task/pkg/types/gitlab"
 )
 
@@ -14,6 +13,15 @@ type GitServer interface {
 	String() string
 }
 
+// UnkownServiceTypeError defines the error condition for unkown service type.
+type UnkownServiceTypeError struct {
+	Service string
+}
+
+func (uste *UnkownServiceTypeError) Error() string {
+	return uste.Service + " not known"
+}
+
 // NewGitServer creates instance of GitServer from given configuration.
 func NewGitServer(details map[string]interface{}) (GitServer, error) {
 	//fmt.Printf("details: %v\n", details)
@@ -23,9 +31,11 @@ func NewGitServer(details map[string]interface{}) (GitServer, error) {
 	case "gitlab":
 		server = &gitlab.Server{}
 	case "github":
-		return nil, errors.New("service type github unknown")
+		server = &github.Server{}
 	case "redmine":
-		return nil, errors.New("service type redmine unknown")
+		return nil, &UnkownServiceTypeError{"redmine"}
+	default:
+		return nil, &UnkownServiceTypeError{service.(string)}
 	}
 	server.Configure(details)
 	return server, nil
