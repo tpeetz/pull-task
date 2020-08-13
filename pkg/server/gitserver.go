@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/tpeetz/pull-task/pkg/types/github"
 	"github.com/tpeetz/pull-task/pkg/types/gitlab"
+	"github.com/tpeetz/pull-task/pkg/types/redmine"
 )
 
 // GitServer definees the methods for server (Gitlab, Github, Redmine)
@@ -33,7 +34,7 @@ func NewGitServer(details map[string]interface{}) (GitServer, error) {
 	case "github":
 		server = &github.Server{}
 	case "redmine":
-		return nil, &UnkownServiceTypeError{"redmine"}
+		server = &redmine.Server{}
 	default:
 		return nil, &UnkownServiceTypeError{service.(string)}
 	}
