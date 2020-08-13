@@ -6,6 +6,7 @@ import (
 
 	"github.com/tpeetz/pull-task/pkg/types/github"
 	"github.com/tpeetz/pull-task/pkg/types/gitlab"
+	"github.com/tpeetz/pull-task/pkg/types/redmine"
 )
 
 var (
@@ -19,8 +20,9 @@ var (
 	ghServer      = &github.Server{URL: "https://api.github.com"}
 	redmineConfig = map[string]interface{}{
 		"service": "redmine",
+		"limit":   120,
 	}
-	//rmServer = &GitServer{url: "https://redmine.com", token: "secretToken"}
+	rmServer      = &redmine.Server{URL: "https://redmine.example.com"}
 	unknownConfig = map[string]interface{}{
 		"service": "unknown",
 	}
@@ -38,7 +40,7 @@ func TestNewGitServer(t *testing.T) {
 	}{
 		{"gitlab", args{gitlabConfig}, glServer, false},
 		{"github", args{githubConfig}, ghServer, false},
-		{"redmine", args{redmineConfig}, nil, true},
+		{"redmine", args{redmineConfig}, rmServer, false},
 		{"unknown", args{unknownConfig}, nil, true},
 	}
 	for _, tt := range tests {
