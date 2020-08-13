@@ -20,9 +20,9 @@ var (
 	ghServer      = &github.Server{URL: "https://api.github.com"}
 	redmineConfig = map[string]interface{}{
 		"service": "redmine",
-		"limit":   120,
+		//"limit":   120,
 	}
-	rmServer      = &redmine.Server{URL: "https://redmine.example.com"}
+	rmServer      = &redmine.Server{URL: "https://redmine.example.com", Limit: 120}
 	unknownConfig = map[string]interface{}{
 		"service": "unknown",
 	}
@@ -41,6 +41,7 @@ func TestNewGitServer(t *testing.T) {
 		{"gitlab", args{gitlabConfig}, glServer, false},
 		{"github", args{githubConfig}, ghServer, false},
 		{"redmine", args{redmineConfig}, rmServer, false},
+		{"redmine-limit", args{map[string]interface{}{"service": "redmine", "limit": 99}}, &redmine.Server{URL: "https://redmine.example.com", Limit: 99}, false},
 		{"unknown", args{unknownConfig}, nil, true},
 	}
 	for _, tt := range tests {
