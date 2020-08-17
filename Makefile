@@ -33,15 +33,15 @@ build-win: bin/$(GONAME).exe
 
 bin/$(GONAME): $(GOFILE)
 	@echo "Building $(GOFILE) to ./bin"
-	@GOPATH=$(GOPATH) $(GOBUILD) -v -ldflags="-X main.version=$(shell git describe --always --long --dirty)" -o bin/$(GONAME) $(GOFILE)
+	@GOPATH=$(GOPATH) $(GOBUILD) -v -ldflags="-X main.version=$(shell git describe --tags)" -o bin/$(GONAME) $(GOFILE)
 
 bin/$(GONAME).exe: $(GOFILE)
 	@echo "Building $(GOFILE) to ./bin"
-	env GOOS=windows GOARCH=amd64 GOPATH=$(GOPATH) $(GOBUILD) -v -ldflags="-X main.version=$(shell git describe --always --long --dirty)" -o bin/$(GONAME).exe $(GOFILE)
+	env GOOS=windows GOARCH=amd64 GOPATH=$(GOPATH) $(GOBUILD) -v -ldflags="-X main.version=$(shell git describe --tags)" -o bin/$(GONAME).exe $(GOFILE)
 
 install:
 	@echo using $(GOPATH)
-	GOPATH=$(GOPATH) $(GOCMD) install -v -ldflags="-X main.version=$(shell git describe --always --long --dirty)" ./...
+	GOPATH=$(GOPATH) $(GOCMD) install -v -ldflags="-X main.version=$(shell git describe --tags)" ./...
 
 check: test coverage lint vet
 
