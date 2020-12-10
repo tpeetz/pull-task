@@ -28,7 +28,7 @@ func (server *Server) Configure(details map[string]interface{}) error {
 	} else {
 		server.URL = "https://redmine.example.com"
 	}
-	token, ok := details["token"]
+	token, ok := details["api"]
 	if ok {
 		serverToken, correctType := token.(string)
 		if correctType {
@@ -58,6 +58,7 @@ func (server *Server) LoadIssues() error {
 	}
 	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("X-Redmine-API-Key", server.Token)
+	//fmt.Printf("used request:\n%v\n", request)
 	client := &http.Client{}
 	response, err := client.Do(request)
 	if err != nil {

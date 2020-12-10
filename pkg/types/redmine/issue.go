@@ -20,7 +20,7 @@ type Issue struct {
 	StartDate    string        `json:"start_date,omitempty"`
 	DueDate      string        `json:"due_date,omitempty"`
 	DoneRatio    int           `json:"done_ratio"`
-	Estimated    json.Number   `json:"estimated_hours"`
+	Estimated    json.Number   `json:"estimated_hours,omitempty"`
 	Created      string        `json:"created_on,omitempty"`
 	Updated      string        `json:"updated_on,omitempty"`
 	CustomFields []CustomField `json:"custom_fields,omitempty"`
