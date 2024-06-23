@@ -20,7 +20,7 @@ GOFILE=cmd/pull-task/main.go
 all: deps build  build-win
 
 deps:
-	GOPATH=$(GOPATH) $(GOGET) -u github.com/spf13/cobra/cobra
+	GOPATH=$(GOPATH) $(GOGET) -u github.com/spf13/cobra
 	GOPATH=$(GOPATH) $(GOGET) -u github.com/jstemmer/go-junit-report
 	GOPATH=$(GOPATH) $(GOGET) -u github.com/inconshreveable/mousetrap
 	GOPATH=$(GOPATH) $(GOGET) -u github.com/mitchellh/go-homedir
